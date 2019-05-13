@@ -2,6 +2,7 @@ version: '3.3'
 services:
   db:
     image: hypriot/rpi-mysql
+    #image: mysql:latest
     restart: always
     environment:
       MYSQL_DATABASE: 'db'
