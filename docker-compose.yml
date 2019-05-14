@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  db:
+  mysql:
     image: hypriot/rpi-mysql
     #image: mysql:latest
     restart: always
@@ -17,3 +17,19 @@ services:
     volumes:
       - ~/workspace/docker/mysql/data:/var/lib/mysql
       - ~/workspace/docker/mysql/config:/etc/mysql/conf.d
+  web:
+    image: nginx
+    volumns:
+      - ~/my-site:/etc/nginx/conf.d/mysite.template
+    ports:
+      - '8080:8080'
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=8080
+  node-server:
+    image: node:8
+    working_dir: ~/usr/src/myapp
+    volumns:
+      - ~/node-app/src/app:/usr/src/myapp
+    ports:
+      - '3000:3000'
